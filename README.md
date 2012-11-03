@@ -3,4 +3,4 @@ greplinChallenge
 
 Javascript based responses to the greplin challenge
 
-[greplinChallenge.github.com/LarryBattle/](greplinChallenge.github.com/LarryBattle/)
+[http://larrybattle.github.com/greplinChallenge/](http://larrybattle.github.com/greplinChallenge/)
