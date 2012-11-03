@@ -1,0 +1,25 @@
+{
+	"name" : "greplinChallenge",
+	"private" : true,
+	"version" : "0.0.1",
+	"description" : "Javascript based answers for the challenge.greplin.com",
+	"main" : "index.js",
+	"directories" : {
+		"test" : "test"
+	},
+	"scripts" : {
+		"test" : "echo \"Error: no test specified\" && exit 1"
+	},
+	"repository" : {
+		"type" : "git",
+		"url" : "https://github.com/LarryBattle/greplinChallenge"
+	},
+	"keywords" : [
+		"greplin",
+		"challenge",
+		"algorithms",
+		"fun"
+	],
+	"author" : "Larry Battle <http://bateru.com/news>",
+	"license" : "MIT"
+}
