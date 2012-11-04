@@ -55,11 +55,10 @@ test( "test findAllStringsMatchBackAndForward()", function(){
 var inputEl = document.getElementById("input");
 inputEl.onkeyup = function(){
 	var str = document.getElementById("input").value.trim(),
-		result = findAllStringsMatchBackAndForward(str),
-		output = "Level 1 password = '" + result[result.length - 1] +"'";
+		result = findAllStringsMatchBackAndForward(str),	
+		output = JSON.stringify( result, null, 2 );
 		
-	output += "\r\n" +  JSON.stringify( result, null, 2 );
-	
+	document.getElementById("answer").value = result[result.length - 1];
 	document.getElementById("output").innerHTML = output;
 };
 inputEl.onkeyup();

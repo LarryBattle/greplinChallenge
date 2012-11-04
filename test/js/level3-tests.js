@@ -78,9 +78,9 @@ var inputEl = document.getElementById("input");
 inputEl.onkeyup = function(){
 	var nums = document.getElementById("input").value.match(/\d+/g),
 		result = getAllSumArrThatFormValues(nums),
-		output = "Level 3 password = '" + result.length + "'";
-	output += "\r\n" +  JSON.stringify( result, null, 2 );
-	
+		output = JSON.stringify( result, null, 2 );
+		
+	document.getElementById("answer").value = result.length;
 	document.getElementById("output").innerHTML = output;
 };
 inputEl.onkeyup();

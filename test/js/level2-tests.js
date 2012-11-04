@@ -51,11 +51,11 @@ inputEl.onkeyup = function(){
 		part1 = findNextSmallestPrimeFib(num),
 		part2 = getUniqueArr(getPrimeFactors(part1+1)),
 		result = getSumOfNums(part2),
-		output = "Level 2 password = '" + result+"'";
+		output = "part1 = " +  JSON.stringify( part1, null, 2 );
 		
-	output += "\r\n part1 = " +  JSON.stringify( part1, null, 2 );
 	output += "\r\n part2 = " +  JSON.stringify( part2, null, 2 );
 	
+	document.getElementById("answer").value = result;
 	document.getElementById("output").innerHTML = output;
 };
 inputEl.onkeyup();
