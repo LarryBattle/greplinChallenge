@@ -67,13 +67,13 @@ test("test SubsetFinder constructor", function(){
 		"Collection(maxValue: 3, length:3, nums: [NumModule(value=1); NumModule(value=2); NumModule(value=3)])");
 });
 
-test("test SubsetFinder.prototype.addValueToNumSet()", function(){
+test("test SubsetFinder.prototype.addNumberToEachNumSet()", function(){
 	var a = new SubsetFinder([1,2,3]);
-	a.addValueToNumSet(2,1,[2]);
+	a.addNumberToEachNumSet(2,1,[2]);
 	equal(a.toString(), "SubsetFinder(numSet: [1,2,3], queue: [], collection: [length=3])");
 	
 	a = new SubsetFinder([1,2,3]);
-	a.addValueToNumSet(1,0,[1]);
+	a.addNumberToEachNumSet(1,0,[1]);
 	equal(a.toString(), "SubsetFinder(numSet: [1,2,3], queue: [], collection: [length=3])");
 });
 /**
@@ -81,21 +81,23 @@ test("test SubsetFinder.prototype.addValueToNumSet()", function(){
 */
 var inputEl = document.getElementById("input");
 inputEl.onkeyup = function(){
-	return;
-	var nums = document.getElementById("input").value.match(/\d+/g),
+	var nums = document.getElementById("input").value.match(/\d+/g).map(function(a){return +a}),
 		a = new SubsetFinder(nums),
 		result = a.solve().getCollectionSubsetCount(),
 		output = a.toString();
 		
 	output += "\r\n############\r\n a.collection.toString() = \r\n" +  a.collection.toString();
-	
+	console.log( nums );
 	document.getElementById("answer").value = result;
 	document.getElementById("output").innerHTML = output;
 };
 inputEl.onkeyup();
 
 // testing...
-var a = new SubsetFinder([3, 4, 9, 14, 15, 19, 28, 37, 47, 50, 54, 56, 59, 61, 70, 73, 78, 81, 92, 95, 97, 99]);
-a.solve();
-console.log( a.getCollectionSubsetCount() );
-console.log( "47 subsets %s", JSON.stringify( a.collection.getNumber(47) ) );
+var fn = function(arr){
+	var a = new SubsetFinder(arr).solve();
+	console.log( a.getCollectionSubsetCount() );	
+	console.log( JSON.stringify( a.getNumSetNumbers() ) );
+};
+fn([3, 4, 9, 14, 15, 19, 28, 37, 47, 50, 54, 56, 59, 61, 70, 73, 78, 81, 92, 95, 97, 99]);
+
