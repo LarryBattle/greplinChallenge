@@ -22,14 +22,6 @@
 * @date 10-28-2012
 */
 
-test("test getObjectFromArray()", function () {
-	var fn = getObjectFromArray;
-	deepEqual(fn([1, 2, 3]), {
-		1 : 0,
-		2 : 1,
-		3 : 2
-	});
-});
 test("test NumModule constructor", function(){
 	var fn = function(a,b){
 		return new NumModule(a,b).toString();
@@ -69,7 +61,7 @@ test("test Collection.prototype.getNumber()", function(){
 test("test SubsetFinder constructor", function(){
 	var a = new SubsetFinder([1,2,3]);
 	
-	equal( a.toString(), "SubsetFinder(numSet: [1,2,3], queue: [1,2,3], collection: [length=3])" );
+	equal( a.toString(), "SubsetFinder(numSet: [1,2,3], queue: [], collection: [length=3])" );
 	
 	equal( a.collection.toString(), 
 		"Collection(maxValue: 3, length:3, nums: [NumModule(value=1); NumModule(value=2); NumModule(value=3)])");
@@ -77,18 +69,19 @@ test("test SubsetFinder constructor", function(){
 
 test("test SubsetFinder.prototype.addValueToNumSet()", function(){
 	var a = new SubsetFinder([1,2,3]);
-	a.addValueToNumSet(2,[2]);
-	equal(a.toString(), "SubsetFinder(numSet: [1,2,3], queue: [1,2,3], collection: [length=3])");
+	a.addValueToNumSet(2,1,[2]);
+	equal(a.toString(), "SubsetFinder(numSet: [1,2,3], queue: [], collection: [length=3])");
 	
 	a = new SubsetFinder([1,2,3]);
-	a.addValueToNumSet(1,[1]);
-	equal(a.toString(), "SubsetFinder(numSet: [1,2,3], queue: [1,2,3], collection: [length=3])");
+	a.addValueToNumSet(1,0,[1]);
+	equal(a.toString(), "SubsetFinder(numSet: [1,2,3], queue: [], collection: [length=3])");
 });
 /**
 * GUI Controls
 */
 var inputEl = document.getElementById("input");
 inputEl.onkeyup = function(){
+	return;
 	var nums = document.getElementById("input").value.match(/\d+/g),
 		a = new SubsetFinder(nums),
 		result = a.solve().getCollectionSubsetCount(),
@@ -100,3 +93,9 @@ inputEl.onkeyup = function(){
 	document.getElementById("output").innerHTML = output;
 };
 inputEl.onkeyup();
+
+// testing...
+var a = new SubsetFinder([3, 4, 9, 14, 15, 19, 28, 37, 47, 50, 54, 56, 59, 61, 70, 73, 78, 81, 92, 95, 97, 99]);
+a.solve();
+console.log( a.getCollectionSubsetCount() );
+console.log( "47 subsets %s", JSON.stringify( a.collection.getNumber(47) ) );
