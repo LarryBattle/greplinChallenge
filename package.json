@@ -1,7 +1,7 @@
 {
 	"name" : "greplinChallenge",
 	"private" : true,
-	"version" : "0.0.5",
+	"version" : "0.1",
 	"description" : "Javascript based answers for the challenge.greplin.com",
 	"main" : "index.js",
 	"directories" : {

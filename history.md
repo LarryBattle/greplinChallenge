@@ -1,3 +1,6 @@
+__Version 0.1 (11/06/2012)__<br/>
+- Level 1, 2, 3 are now complete.
+
 __Version 0.0.4 (11/05/2012)__<br/>
 - Updated level 3. Off by 1 now.
 
