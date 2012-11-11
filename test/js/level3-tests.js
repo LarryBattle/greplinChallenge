@@ -21,83 +21,30 @@
 * @author Larry Battle <bateru.com/news>
 * @date 10-28-2012
 */
-
-test("test NumModule constructor", function(){
-	var fn = function(a,b){
-		return new NumModule(a,b).toString();
-	};
-	equal( fn(3), "NumModule(value=3)" );
-	equal( fn(3, [[1,2]]), "NumModule(value=3, subset((1,2)))" );
-	equal( fn(5, [[1,4],[2,3]]), "NumModule(value=5, subset((1,4),(2,3)))" );
-});
-test("test NumModule.prototype.addSubset()", function(){
-	var fn = function(a,b,c){
-		return new NumModule(a,b).addSubset(c).toString();
-	};
-	equal( fn(5, [[1,4],[2,3]]), "NumModule(value=5, subset((1,4),(2,3)))" );
-	equal( fn(5, [[1,4],[2,3]], [2,3]), "NumModule(value=5, subset((1,4),(2,3)))" );
-	equal( fn(7, [[3,4],[1,6]], [2,5]), "NumModule(value=7, subset((3,4),(1,6),(2,5)))" );
-});
-test("test Collection constructor", function(){
-	var fn = function(a,b){
-		return new Collection(a).addNumber(b).toString();
-	};
-	equal(fn(0), "Collection(maxValue: 0, length:0)");
-	equal(fn(3), "Collection(maxValue: 3, length:0)");
-});
-test("test Collection.prototype.getTotalSubsetCount()", function(){
-	var a = new Collection(3, [1,2,3]);
-	equal( a.getTotalSubsetCount(), 0);
-	a.getNumber(3).addSubset([1,2]);
-	equal( a.getTotalSubsetCount(), 1);
-});
-test("test Collection.prototype.getNumber()", function(){
-	var fn = function(a,b,c){
-		return new Collection(a).addNumber(b).getNumber(c);
-	};
-	equal(fn(3,2,2).toString(), "NumModule(value=2)");
-	equal(fn(3,2,10), undefined);
-});
-test("test SubsetFinder constructor", function(){
-	var a = new SubsetFinder([1,2,3]);
-	
-	equal( a.toString(), "SubsetFinder(numSet: [1,2,3], queue: [], collection: [length=3])" );
-	
-	equal( a.collection.toString(), 
-		"Collection(maxValue: 3, length:3, nums: [NumModule(value=1); NumModule(value=2); NumModule(value=3)])");
-});
-
-test("test SubsetFinder.prototype.addNumberToEachNumSet()", function(){
-	var a = new SubsetFinder([1,2,3]);
-	a.addNumberToEachNumSet(2,1,[2]);
-	equal(a.toString(), "SubsetFinder(numSet: [1,2,3], queue: [], collection: [length=3])");
-	
-	a = new SubsetFinder([1,2,3]);
-	a.addNumberToEachNumSet(1,0,[1]);
-	equal(a.toString(), "SubsetFinder(numSet: [1,2,3], queue: [], collection: [length=3])");
+var getSubSetCount = function(arr){
+	var a = new SubsetFinder(arr);
+	return a.getCount();
+};
+test("test count", function(){
+	var fn = getSubSetCount;
+	equal(fn([1,2]), 0);
+	equal(fn([1,2,3]), 1);
+	equal(fn([1,3,4,5]), 2);
+	equal(fn([3, 4, 9, 14, 15, 19, 28, 37, 47, 50, 54, 56, 59, 61, 70, 73, 78, 81, 92, 95, 97, 99]), 179);
 });
 /**
 * GUI Controls
 */
 var inputEl = document.getElementById("input");
 inputEl.onkeyup = function(){
-	var nums = document.getElementById("input").value.match(/\d+/g).map(function(a){return +a}),
+	var nums = document.getElementById("input").value.match(/\d+/g).map(function(a){return +a;}),
 		a = new SubsetFinder(nums),
-		result = a.solve().getCollectionSubsetCount(),
-		output = a.toString();
-		
-	output += "\r\n############\r\n a.collection.toString() = \r\n" +  a.collection.toString();
-	console.log( nums );
+		result = a.getCount(),
+		output = JSON.stringify(a, null, 2);
+
 	document.getElementById("answer").value = result;
-	document.getElementById("output").innerHTML = output;
+	document.getElementById("output").value = output;
 };
 inputEl.onkeyup();
 
-// testing...
-var fn = function(arr){
-	var a = new SubsetFinder(arr).solve();
-	console.log( a.getCollectionSubsetCount() );	
-	console.log( JSON.stringify( a.getNumSetNumbers() ) );
-};
-fn([3, 4, 9, 14, 15, 19, 28, 37, 47, 50, 54, 56, 59, 61, 70, 73, 78, 81, 92, 95, 97, 99]);
 
